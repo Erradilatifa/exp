@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil - Latifa App</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="/">
+                    <!-- Logo circulaire -->
+                    <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/c/c7/Logo_Real_Madrid.svg/1200px-Logo_Real_Madrid.svg.png" alt="Latifa App Logo" class="logo-img circular-logo">
+                </a>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="/" class="active"><i class="fas fa-home"></i> Accueil</a></li>
+                    <li><a href="/about"><i class="fas fa-info-circle"></i> À propos</a></li>
+                    <!-- Nouvelle icône pour Team -->
+                    <li><a href="/services"><i class="fas fa-users"></i> Team</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header><br>
+
+  <main class="main-content">
+    <!-- Slider pleine largeur -->
+    <div class="full-width-slider">
+      <div class="slider">
+        <div class="slide active">
+          <img src="https://e0.365dm.com/17/12/2048x1152/skysports-cristiano-ronaldo-real-madrid-football_4178227.jpg?20171209155617" alt="Image 1">
+        </div>
+        <div class="slide">
+          <img src="https://shop.realmadrid.com/_next/image?url=https%3A%2F%2Flegends.broadleafcloud.com%2Fapi%2Fasset%2Fcontent%2FGENERICO-2.jpg%3FcontextRequest%3D%257B%2522forceCatalogForFetch%2522%3Afalse%2C%2522forceFilterByCatalogIncludeInheritance%2522%3Afalse%2C%2522forceFilterByCatalogExcludeInheritance%2522%3Afalse%2C%2522applicationId%2522%3A%252201H4RD9NXMKQBQ1WVKM1181VD8%2522%2C%2522tenantId%2522%3A%2522REAL_MADRID%2522%257D&w=1920&q=75" alt="Image 2">
+        </div>
+        <div class="slide">
+          <img src="https://thumb.canalplus.pro/http/unsafe/1440x810/smart/creativemedia-image.canalplus.pro/content/0001/58/b2f89ac6db2fe49b9da448e236d89d0c01b693e2.jpeg" alt="Image 3">
+        </div>
+      </div>
+      
+      <!-- Navigation buttons -->
+      <button class="slider-btn prev-btn">&larr;</button>
+      <button class="slider-btn next-btn">&rarr;</button>
+      
+      <!-- Indicators -->
+      <div class="indicators">
+        <span class="indicator active"></span>
+        <span class="indicator"></span>
+        <span class="indicator"></span>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3><i class="fas fa-futbol"></i> Real Madrid</h3>
+                <div class="team-info">
+                    <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/c/c7/Logo_Real_Madrid.svg/1200px-Logo_Real_Madrid.svg.png" 
+                         alt="Logo Real Madrid" 
+                         class="team-logo">
+                    <p><i class="fas fa-trophy"></i> Club le plus titré d'Europe</p>
+                    <p><i class="fas fa-stadium"></i> Santiago Bernabéu</p>
+                    <p><i class="fas fa-calendar-alt"></i> Fondé en 1902</p>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3><i class="fas fa-link"></i> Liens rapides</h3>
+                <ul>
+                    <li><a href="/"><i class="fas fa-home"></i> Accueil</a></li>
+                    <li><a href="/about"><i class="fas fa-info-circle"></i> À propos</a></li>
+                    <li><a href="/tourism"><i class="fas fa-users"></i> Team</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3><i class="fas fa-envelope"></i> Contact</h3>
+                <p><i class="fas fa-phone"></i> +34 91 123 45 67</p>
+                <p><i class="fas fa-envelope"></i> hola@madridapp.com</p>
+                <div class="socials">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2023 Madrid App | <span><i class="fas fa-heart"></i> Made with passion in Madrid</span>
+        </div>
+    </div>
+</footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const slider = document.querySelector('.slider');
+      const slides = document.querySelectorAll('.slide');
+      const prevBtn = document.querySelector('.prev-btn');
+      const nextBtn = document.querySelector('.next-btn');
+      const indicators = document.querySelectorAll('.indicator');
+      let currentIndex = 0;
+      let intervalId;
+  
+      function updateSlider() {
+        slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+        
+        // Mettre à jour les indicateurs
+        indicators.forEach((indicator, index) => {
+          indicator.classList.toggle('active', index === currentIndex);
+        });
+        
+        // Mettre à jour les slides
+        slides.forEach((slide, index) => {
+          slide.classList.toggle('active', index === currentIndex);
+        });
+      }
+  
+      function nextSlide() {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateSlider();
+      }
+  
+      function prevSlide() {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        updateSlider();
+      }
+  
+      function startAutoSlide() {
+        intervalId = setInterval(nextSlide, 5000);
+      }
+  
+      function stopAutoSlide() {
+        clearInterval(intervalId);
+      }
+  
+      // Événements pour les boutons
+      nextBtn.addEventListener('click', () => {
+        nextSlide();
+        stopAutoSlide();
+        startAutoSlide();
+      });
+  
+      prevBtn.addEventListener('click', () => {
+        prevSlide();
+        stopAutoSlide();
+        startAutoSlide();
+      });
+  
+      // Événements pour les indicateurs
+      indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+          currentIndex = index;
+          updateSlider();
+          stopAutoSlide();
+          startAutoSlide();
+        });
+      });
+  
+      // Démarrer le slider automatique
+      startAutoSlide();
+      
+      // Arrêter le slider automatique quand la souris est sur le slider
+      slider.addEventListener('mouseenter', stopAutoSlide);
+      slider.addEventListener('mouseleave', startAutoSlide);
+    });
+  </script>
+</body>
+</html>
