@@ -40,3 +40,24 @@ Créez un projet ExpressJS complet avec la structure de répertoires recommandé
 
 # II - Routage avec ExpressJS
 ## Exercice 1: Créer un ensemble de routes pour une API de gestion de tâches
+Exercice 1: Créer un ensemble de routes pour une API de gestion de tâches
+Créez une API RESTful pour gérer une liste de tâches avec les routes suivantes :
+
+GET /tasks - Récupérer toutes les tâches
+GET /tasks/:id - Récupérer une tâche spécifique
+POST /tasks - Créer une nouvelle tâche
+PUT /tasks/:id - Mettre à jour une tâche existante
+DELETE /tasks/:id - Supprimer une tâche
+
+ ### Démarrage et arrêt du serveur:
+ ``` bash command 
+ node app.js
+ ```
+### 👉 URL pour tester le projet : http://localhost:3000/tasks-page
+# 🟣 Vue de la page de gestion des tâches
+
+![22222222222](https://github.com/user-attachments/assets/080b7cbc-5bec-4f24-82e7-4a4815ba778d)
+
+
+
+
