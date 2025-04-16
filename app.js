@@ -3,25 +3,57 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
-// Importez le routeur basic
-const basicRouter = require('./routes/basic'); // Assurez-vous que le chemin est correct
+// Importez les routeurs
+const basicRouter = require('./routes/basic');
+const tasksRouter = require('./routes/tasks'); // Nouveau routeur pour les tâches
+const blogRouter = require('./routes/blog'); 
+// Routeurs modulaires (Exercice 3)
+const usersRouter = require('./routes/modules/users');
+const productsRouter = require('./routes/modules/products');
+const ordersRouter = require('./routes/modules/orders');
 
 // Configuration des middlewares
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json()); // Middleware pour parser le JSON
+
+app.get('/tasks-page', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'tasks.html'), {
+      headers: {
+          'Content-Type': 'text/html'
+      }
+  });
+});
+app.get('/blog-page', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'blog.html'));
+});
+
 
 // Configuration des vues
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
 
+
 // Route pour la page d'accueil (index.html)
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
+app.get('/tasks-page', (req, res) => {
+  res.render('tasks'); // Sans l'extension .ejs
+});
+app.get('/admin-dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'admin-dashboard.html'));
+});
 
-// Montez le routeur basic sous le chemin '/basic'
+// Montez les routeurs
 app.use('/basic', basicRouter);
+app.use('/tasks', tasksRouter); // Montage du routeur des tâches
+app.use('/blog', blogRouter); // Montage du routeur de blog
+app.use('/users', usersRouter);
+app.use('/products', productsRouter);
+app.use('/orders', ordersRouter);
+
 
 // Route pour afficher la date
 app.get('/date', (req, res) => {
@@ -183,5 +215,11 @@ app.listen(PORT, () => {
   console.log(`Serveur démarré:
   - Accueil: http://localhost:${PORT}
   - Page Basic: http://localhost:${PORT}/basic
-  - Date: http://localhost:${PORT}/date`);
+  - Date: http://localhost:${PORT}/date
+  - API Tâches: http://localhost:${PORT}/tasks
+  - Interface Tâches: http://localhost:${PORT}/tasks-page
+  - Blog API: http://localhost:${PORT}/blog
+  - Interface Blog: http://localhost:${PORT}/blog-page
+  - Interface Admin: http://localhost:${PORT}/admin-dashboard`);
+
 });

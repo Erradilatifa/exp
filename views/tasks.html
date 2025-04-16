@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionnaire de Tâches</title>
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary-color: #a855f7;
+            --accent-color: #ec4899;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: var(--gray-800);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .app-logo {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: var(--gray-600);
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-top: 5px solid var(--primary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        h2 {
+            color: var(--gray-800);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--gray-600);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .custom-checkbox {
+            position: relative;
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        .custom-checkbox input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            background-color: white;
+            border: 2px solid var(--gray-300);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .custom-checkbox input:checked + .checkmark {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 9px;
+            top: 5px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .custom-checkbox input:checked + .checkmark:after {
+            display: block;
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 0.9rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        button:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .btn-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+        }
+
+        .tasks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .task-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .task-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .task-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .task-card.completed::before {
+            background: linear-gradient(90deg, var(--success-color), #34d399);
+        }
+
+        .task-card h3 {
+            margin-bottom: 1rem;
+            color: var(--gray-800);
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .task-card.completed h3 {
+            text-decoration: line-through;
+            color: var(--gray-600);
+        }
+
+        .task-status {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.35rem 0.8rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            gap: 0.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-pending {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning-color);
+        }
+
+        .status-completed {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .btn-edit {
+            background: linear-gradient(135deg, var(--secondary-color), #2b99e2);
+        }
+
+        .btn-delete {
+            background: linear-gradient(135deg, var(--danger-color), #5a1763);
+        }
+
+        .btn-sm {
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+        }
+
+        .empty-state img {
+            max-width: 200px;
+            margin-bottom: 1.5rem;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--gray-800);
+        }
+
+        .empty-state p {
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .tasks-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .task-card {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="app-logo">TaskFlow</div>
+            <p>Organisez votre travail et votre vie avec simplicité et efficacité</p>
+        </header>
+
+        <section class="card">
+            <h2>Créer une nouvelle tâche</h2>
+            <form id="addTaskForm">
+                <div class="form-group">
+                    <label for="title">Titre de la tâche</label>
+                    <input type="text" id="title" name="title" placeholder="Qu'avez-vous besoin de faire?" required>
+                </div>
+                <div class="checkbox-wrapper">
+                    <label class="custom-checkbox">
+                        <input type="checkbox" id="completed" name="completed">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label for="completed">Marquer comme terminée</label>
+                </div>
+                <button type="submit">
+                    <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    Ajouter la tâche
+                </button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Mes tâches</h2>
+            <div class="tasks-grid" id="tasksContainer">
+                <!-- Tâche en attente -->
+                <div class="task-card">
+                    <h3>Faire les courses pour la semaine</h3>
+                    <span class="task-status status-pending">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        En attente
+                    </span>
+                    <div class="task-actions">
+                        <button class="btn-edit btn-sm">
+                            <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                            </svg>
+                            Modifier
+                        </button>
+                        <button class="btn-delete btn-sm">
+                            <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                            Supprimer
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Tâche complétée -->
+                <div class="task-card completed">
+                    <h3>Apprendre Express.js</h3>
+                    <span class="task-status status-completed">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Terminée
+                    </span>
+                    <div class="task-actions">
+                        <button class="btn-edit btn-sm">
+                            <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                            </svg>
+                            Modifier
+                        </button>
+                        <button class="btn-delete btn-sm">
+                            <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                            Supprimer
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- État vide (à afficher quand il n'y a pas de tâches) -->
+                <!-- 
+                <div class="empty-state">
+                    <img src="/api/placeholder/200/150" alt="Aucune tâche">
+                    <h3>Pas encore de tâches</h3>
+                    <p>Commencez par ajouter votre première tâche ci-dessus</p>
+                    <button>
+                        <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        Créer une tâche
+                    </button>
+                </div>
+                -->
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // JavaScript pour gérer les tâches
+        document.addEventListener('DOMContentLoaded', function() {
+            const addTaskForm = document.getElementById('addTaskForm');
+            const tasksContainer = document.getElementById('tasksContainer');
+            
+            // Charger les tâches au démarrage
+            fetchTasks();
+            
+            // Gérer l'ajout d'une nouvelle tâche
+            addTaskForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const title = document.getElementById('title').value;
+                const completed = document.getElementById('completed').checked;
+                
+                fetch('/tasks', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ title, completed })
+                })
+                .then(response => response.json())
+                .then(newTask => {
+                    addTaskForm.reset();
+                    fetchTasks();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Afficher un message d'erreur à l'utilisateur
+                });
+            });
+            
+            // Fonction pour récupérer toutes les tâches
+            function fetchTasks() {
+                fetch('/tasks')
+                    .then(response => response.json())
+                    .then(tasks => {
+                        if (tasks.length === 0) {
+                            // Afficher l'état vide si aucune tâche
+                            tasksContainer.innerHTML = `
+                                <div class="empty-state">
+                                    <img src="/api/placeholder/200/150" alt="Aucune tâche">
+                                    <h3>Pas encore de tâches</h3>
+                                    <p>Commencez par ajouter votre première tâche ci-dessus</p>
+                                    <button onclick="document.getElementById('title').focus()">
+                                        <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                        </svg>
+                                        Créer une tâche
+                                    </button>
+                                </div>
+                            `;
+                        } else {
+                            tasksContainer.innerHTML = '';
+                            tasks.forEach(task => {
+                                renderTask(task);
+                            });
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+            
+            // Fonction pour afficher une tâche
+            function renderTask(task) {
+                const taskElement = document.createElement('div');
+                taskElement.className = `task-card ${task.completed ? 'completed' : ''}`;
+                taskElement.innerHTML = `
+                    <h3>${task.title}</h3>
+                    <span class="task-status ${task.completed ? 'status-completed' : 'status-pending'}">
+                        ${task.completed ? 
+                        '<svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Terminée' : 
+                        '<svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> En attente'}
+                    </span>
+                    <div class="task-actions">
+                        <button class="btn-edit btn-sm" onclick="editTask(${task.id})">
+                            <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                            </svg>
+                            Modifier
+                        </button>
+                        <button class="btn-delete btn-sm" onclick="deleteTask(${task.id})">
+                            <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                            Supprimer
+                        </button>
+                    </div>
+                `;
+                tasksContainer.appendChild(taskElement);
+            }
+            
+            // Fonctions globales pour les boutons
+            window.editTask = function(id) {
+                const newTitle = prompt('Entrez le nouveau titre:');
+                if (newTitle) {
+                    fetch(`/tasks/${id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ title: newTitle })
+                    })
+                    .then(() => fetchTasks())
+                    .catch(error => console.error('Error:', error));
+                }
+            };
+            
+            window.toggleStatus = function(id, currentStatus) {
+                fetch(`/tasks/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ completed: !currentStatus })
+                })
+                .then(() => fetchTasks())
+                .catch(error => console.error('Error:', error));
+            };
+            
+            window.deleteTask = function(id) {
+                if (confirm('Êtes-vous sûr de vouloir supprimer cette tâche?')) {
+                    fetch(`/tasks/${id}`, {
+                        method: 'DELETE'
+                    })
+                    .then(() => fetchTasks())
+                    .catch(error => console.error('Error:', error));
+                }
+            };
+        });
+    </script>
+</body>
+</html>
