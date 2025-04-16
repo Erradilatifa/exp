@@ -69,6 +69,8 @@ GET /posts/:year/:month? - Récupérer les articles d'une année et optionnellem
 
 GET /categories/:categoryName/posts - Récupérer les articles d'une catégorie spécifique
 
+### 👉 URL pour tester le projet : http://localhost:3000/blog-page
+
 ### 🚀 Implémentation d'une API RESTful avec ExpressJS : Routes paramétrées pour un système de blog.
 Développement des endpoints GET /posts/:year/:month? et GET /categories/:categoryName/posts avec gestion des paramètres optionnels.
 
