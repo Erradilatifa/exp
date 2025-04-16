@@ -32,7 +32,7 @@ Créez un projet ExpressJS complet avec la structure de répertoires recommandé
  ``` bash command 
  node app.js
  ```
-
+### 👉 URL pour tester le projet : http://localhost:3000 
 # 📘 Création d’un projet ExpressJS structuré avec gestion des routes et fichiers statiques
 
 ![image](https://github.com/user-attachments/assets/ff3144c4-ee2d-43d1-a8ea-20f53f63a790)
