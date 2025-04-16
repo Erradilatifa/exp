@@ -7,6 +7,8 @@ Créez un serveur ExpressJS qui répond "Hello World" sur la route principale et
  ``` bash command 
  node app.js
  ```
+### 👉 URL pour tester le projet : http://localhost:3000/basic 
+
 # Screenshots
 # Création d’un serveur ExpressJS – Affichage de "Hello World" sur la route principale
 
