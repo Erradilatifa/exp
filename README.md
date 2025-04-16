@@ -76,6 +76,12 @@ Développement des endpoints GET /posts/:year/:month? et GET /categories/:catego
 
 ![33333333333Immagine 2025-04-16 232430](https://github.com/user-attachments/assets/30d2262f-724c-4efb-9a33-85506b76e56c)
 
+🔍 Résultats de l'Exploration API
+Données récupérées via les routes paramétrées /posts/:year/:month? et /categories/:categoryName/posts
+
+![5555555555Immagine 2025-04-16 235024](https://github.com/user-attachments/assets/3288ca52-f5a9-4231-994f-dcbbd7a90593)
+
+
 
 
 
