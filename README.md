@@ -5,12 +5,13 @@ Créez un serveur ExpressJS qui répond "Hello World" sur la route principale et
 
  ### Démarrage et arrêt du serveur:
  ``` bash command 
- node server.js
+ node app.js
  ```
 # Screenshots
 # Création d’un serveur ExpressJS – Affichage de "Hello World" sur la route principale
 
-![express1png](https://github.com/user-attachments/assets/b99d3c54-96ef-4e52-acc8-69d36670eb17)
+![Uploading 11111111Immagine 2025-04-16 230713.png…]()
+
 
 # ✅ Description de l'affichage de la page /date :
 La page située à la route "/date" affiche la date et l'heure actuelles
