@@ -88,9 +88,16 @@ Réorganisez une application Express existante en utilisant des routeurs modulai
 
 ### 👉 URL pour tester le projet : http://localhost:3000/admin-dashboard
 
-## Interface de gestion des utilisateurs - Routeur modulaire : /utilisateurs
+## 🛠️ Interface de gestion des utilisateurs - Routeur modulaire : /utilisateurs :
 
 ![8888888Immagine 2025-04-17 000425](https://github.com/user-attachments/assets/f9f7b9b4-9790-484b-b077-508888707fd6)
+
+## 🛠️ Interface de gestion des produits - Routeur modulaire : /produits :
+![I09999999999mmagine 2025-04-17 000623](https://github.com/user-attachments/assets/25356182-bfda-4271-9198-009cbd61b8c9)
+
+## 🛠️ Interface de gestion des commandes - Routeur modulaire : /commandes :
+![33333333333333333333Immagine 2025-04-17 000829](https://github.com/user-attachments/assets/f542f428-7bac-48af-ba60-d8e4de3da178)
+
 
 
 
