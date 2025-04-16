@@ -62,6 +62,18 @@ DELETE /tasks/:id - Supprimer une tâche
 
 ![22222222222](https://github.com/user-attachments/assets/080b7cbc-5bec-4f24-82e7-4a4815ba778d)
 
+# 📝Exercice 2: Implémenter des routes paramétrées
+Créez une API pour un blog avec des routes paramétrées :
+
+GET /posts/:year/:month? - Récupérer les articles d'une année et optionnellement d'un mois spécifique
+
+GET /categories/:categoryName/posts - Récupérer les articles d'une catégorie spécifique
+
+# 🚀 Implémentation d'une API RESTful avec ExpressJS : Routes paramétrées pour un système de blog.
+Développement des endpoints GET /posts/:year/:month? et GET /categories/:categoryName/posts avec gestion des paramètres optionnels.
+
+![33333333333Immagine 2025-04-16 232430](https://github.com/user-attachments/assets/30d2262f-724c-4efb-9a33-85506b76e56c)
+
 
 
 
