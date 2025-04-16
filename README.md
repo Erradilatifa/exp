@@ -10,7 +10,8 @@ Créez un serveur ExpressJS qui répond "Hello World" sur la route principale et
 # Screenshots
 # Création d’un serveur ExpressJS – Affichage de "Hello World" sur la route principale
 
-![Uploading 11111111Immagine 2025-04-16 230713.png…]()
+![11111111Immagine 2025-04-16 230713](https://github.com/user-attachments/assets/6ee21706-9e0f-48f3-aa5d-62c0dca1f518)
+
 
 
 # ✅ Description de l'affichage de la page /date :
