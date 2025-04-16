@@ -62,7 +62,7 @@ DELETE /tasks/:id - Supprimer une tâche
 
 ![22222222222](https://github.com/user-attachments/assets/080b7cbc-5bec-4f24-82e7-4a4815ba778d)
 
-# 📝Exercice 2: Implémenter des routes paramétrées
+## 📝Exercice 2: Implémenter des routes paramétrées
 Créez une API pour un blog avec des routes paramétrées :
 
 GET /posts/:year/:month? - Récupérer les articles d'une année et optionnellement d'un mois spécifique
@@ -81,6 +81,19 @@ Développement des endpoints GET /posts/:year/:month? et GET /categories/:catego
 Données récupérées via les routes paramétrées /posts/:year/:month? et /categories/:categoryName/posts
 
 ![5555555555Immagine 2025-04-16 235024](https://github.com/user-attachments/assets/3288ca52-f5a9-4231-994f-dcbbd7a90593)
+
+
+## Exercice 3: Organiser une application avec des routeurs modulaires
+Réorganisez une application Express existante en utilisant des routeurs modulaires pour différentes ressources (utilisateurs, produits, commandes, etc.).
+
+### 👉 URL pour tester le projet : http://localhost:3000/admin-dashboard
+
+## Interface de gestion des utilisateurs - Routeur modulaire : /utilisateurs
+
+![8888888Immagine 2025-04-17 000425](https://github.com/user-attachments/assets/f9f7b9b4-9790-484b-b077-508888707fd6)
+
+
+
 
 
 
