@@ -125,6 +125,15 @@ Créez un middleware qui vérifie si une requête contient un token valide dans 
 ### 👉 URL: http://localhost:3000/protected 
  ![exercice2222](https://github.com/user-attachments/assets/fb009811-76ee-4539-8417-e23f71bef462)
 
+ ### Test 3: Accéder à une route protégée sans token
+ ### Méthode: GET
+ ### 👉 URL: http://localhost:3000/protected 
+ ![sans token](https://github.com/user-attachments/assets/e2969ef3-ead2-495c-8d22-c8f758016f57)
+
+ 
+###  Test d'une route protégée (avec token invalide) :
+![FF](https://github.com/user-attachments/assets/64442e1e-d098-4e16-9174-ff742049caf0)
+
 
 
 
