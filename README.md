@@ -112,6 +112,22 @@ Créez un middleware qui enregistre les détails de chaque requête (méthode, U
 ![post](https://github.com/user-attachments/assets/4bc73094-bef3-4b3a-9202-7030e7c4f3a4)
 
 
+## Exercice 2: Implémenter un middleware d'authentification simple
+Créez un middleware qui vérifie si une requête contient un token valide dans les en-têtes et refuse l'accès si ce n'est pas le cas.
+### Tester avec Postman
+#### Test 1: Obtenir un token (Login)
+## Méthode: POST
+ ### 👉 URL: http://localhost:3000/login
+![exercice2](https://github.com/user-attachments/assets/02655d88-0db0-4f08-9058-5776583a7707)
+
+### Test 2: Accéder à une route protégée avec le token:
+### Méthode: GET
+### 👉 URL: http://localhost:3000/protected 
+ ![exercice2222](https://github.com/user-attachments/assets/fb009811-76ee-4539-8417-e23f71bef462)
+
+
+
+
 
 
 
