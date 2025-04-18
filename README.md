@@ -118,12 +118,14 @@ Créez un middleware qui vérifie si une requête contient un token valide dans 
 #### Test 1: Obtenir un token (Login)
 ## Méthode: POST
  ### 👉 URL: http://localhost:3000/login
-![exercice2](https://github.com/user-attachments/assets/02655d88-0db0-4f08-9058-5776583a7707)
+![yesss](https://github.com/user-attachments/assets/33cc3801-6d80-4b07-a520-133b5e9ccf6b)
+
 
 ### Test 2: Accéder à une route protégée avec le token:
 ### Méthode: GET
 ### 👉 URL: http://localhost:3000/protected 
- ![exercice2222](https://github.com/user-attachments/assets/fb009811-76ee-4539-8417-e23f71bef462)
+ ![tokemnnnnnnn](https://github.com/user-attachments/assets/1e76cc47-e149-4c70-8e43-c35dfe4a06dc)
+
 
  ### Test 3: Accéder à une route protégée sans token
  ### Méthode: GET
