@@ -99,6 +99,21 @@ Réorganisez une application Express existante en utilisant des routeurs modulai
 ![33333333333333333333Immagine 2025-04-17 000829](https://github.com/user-attachments/assets/f542f428-7bac-48af-ba60-d8e4de3da178)
 
 
+# III - Les Middlewares dans ExpressJS
+## Exercice 1: Créer un middleware de logging personnalisé 
+Créez un middleware qui enregistre les détails de chaque requête (méthode, URL, heure, adresse IP) dans un fichier de log.
+
+# GET
+![postamen 1png](https://github.com/user-attachments/assets/760f6702-de68-4fe9-9fc5-41ef294a7e75)
+
+# POST 
+![post5](https://github.com/user-attachments/assets/d2465aa4-4853-4bf2-93af-c7817cdb5770)
+
+![post](https://github.com/user-attachments/assets/4bc73094-bef3-4b3a-9202-7030e7c4f3a4)
+
+
+
+
 
 
 
