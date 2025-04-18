@@ -136,6 +136,26 @@ Créez un middleware qui vérifie si une requête contient un token valide dans 
 ###  Test d'une route protégée (avec token invalide) :
 ![FF](https://github.com/user-attachments/assets/64442e1e-d098-4e16-9174-ff742049caf0)
 
+# IV - Gestion des requêtes et réponses
+## Exercice 1 : Créer un formulaire et traiter sa soumission avec ExpressJS
+Créez une application Express qui affiche un formulaire d'inscription et traite sa soumission. Le formulaire doit inclure des champs pour le nom, l'email et le mot de passe. Validez les données soumises et affichez un message de confirmation.
+
+ ### 👉 URL: http://localhost:3000/inscription
+ ## 🟢 Formulaire d’inscription avec ExpressJS
+ ![mot depass3](https://github.com/user-attachments/assets/569efb1d-4bc1-4276-8061-dd38e02db511)
+ 
+## 🔴 La confirmation du mot de passe est incorrecte
+ ![incooect](https://github.com/user-attachments/assets/c21873ad-b4ab-45a1-9d25-a4979afa7eb6)
+ 
+ ## ✅ la page de confirmation
+ ![rihame](https://github.com/user-attachments/assets/e804b6ae-b3af-42c1-ba5a-946e51f52a7b)
+
+
+
+ 
+
+
+
 
 
 
