@@ -4,8 +4,31 @@ const path = require('path');
 const fs = require('fs'); // Ajouté pour le logging
 const bodyParser = require('body-parser');
 const app = express();
+const logger = require('./middleware/logger.js'); // Ajoutez l'extension .js
+const fileUpload = require('./middleware/fileUpload');
 const PORT = 3000;
 
+// Middlewares
+// Middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads'), {
+  setHeaders: (res, path) => {
+    const ext = path.extname(path);
+    if (['.jpg', '.jpeg', '.png', '.gif'].includes(ext)) {
+      res.type(ext === '.jpg' || ext === '.jpeg' ? 'image/jpeg' : 
+             ext === '.png' ? 'image/png' : 'image/gif');
+    }
+  }
+}));
+// Ajoutez ce middleware avant vos routes
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 // Middleware de logging personnalisé
 function loggingMiddleware(req, res, next) {
     const now = new Date();
@@ -36,9 +59,12 @@ const usersRouter = require('./routes/modules/users');
 const productsRouter = require('./routes/modules/products');
 const ordersRouter = require('./routes/modules/orders');
 const authMiddleware = require('./middleware/authMiddleware');
+const uploadRouter = require('./routes/upload');
+
 
 // Configuration des middlewares
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(loggingMiddleware); // Ajout du middleware de logging
@@ -48,6 +74,7 @@ app.use((req, res, next) => {
     req.body = req.body || {};
     next();
 });
+
 
 // Routes pour les pages HTML
 app.get('/tasks-page', (req, res) => {
@@ -69,6 +96,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views')); // Ajoutez cette ligne
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use('/upload', uploadRouter);
 
 // Routes principales
 app.get('/', (req, res) => {
@@ -89,6 +117,10 @@ app.get('/inscription', (req, res) => {
       errors: {}, // Toujours initialiser comme objet vide
       formData: {} // Idem pour formData
   });
+});
+app.get('/get-image/:name', (req, res) => {
+  const file = path.join(__dirname, 'public', 'uploads', req.params.name);
+  res.sendFile(file);
 });
 app.post('/inscription', (req, res) => {
   const { nom, email, password, confirmPassword } = req.body;
@@ -125,6 +157,28 @@ app.post('/inscription', (req, res) => {
 
   res.render('confirmation', { nom });
 });
+app.use((req, res, next) => {
+  res.status(404).json({ 
+    error: "Page non trouvée",
+    statusCode: 404
+  });
+});
+// Gestion des erreurs serveur
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({
+    error: err.message || 'Erreur serveur',
+    statusCode: 500,
+    stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
+  });
+});
+
+// Modifiez la route GET /upload
+
+// Route pour uploader un fichier
+
+
+
 // Montez les routeurs
 app.use('/basic', basicRouter);
 app.use('/tasks', tasksRouter);
@@ -133,6 +187,7 @@ app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 app.use('/orders', ordersRouter);
 app.use('/api', authMiddleware);
+app.use('/upload', uploadRouter);
 
 // Route pour afficher la date
 app.get('/date', (req, res) => {

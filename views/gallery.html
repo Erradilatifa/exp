@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload d'images</title>
+  <style>
+    :root {
+      --primary: #4361ee;
+      --primary-dark: #3a0ca3;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+      --border: #dee2e6;
+      --success: #28a745;
+      --error: #dc3545;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      max-width: 1200px;
+    
+      margin: 0 auto;
+      padding: 2rem;
+      color: var(--dark);
+      line-height: 1.6;
+      background-color: #f5f7ff;
+    }
+    
+    h1, h2 {
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    
+    h2 {
+      font-size: 1.8rem;
+      margin: 2.5rem 0 1.5rem;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.5rem;
+    }
+    
+    /* Formulaire */
+    .upload-container {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      margin-bottom: 3rem;
+      border: 1px solid var(--border);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .file-upload {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 2rem;
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      background-color: var(--light);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .file-upload:hover {
+      border-color: var(--primary);
+      background-color: rgba(67, 97, 238, 0.05);
+    }
+    
+    .file-upload i {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .file-upload input {
+      position: absolute;
+      width: 100%;
+      height: 100px;
+      opacity: 0;
+      cursor: pointer;
+    }
+    
+    .file-upload-label {
+      text-align: center;
+    }
+    
+    .file-upload-label h3 {
+      margin: 0;
+      color: var(--primary-dark);
+      font-weight: 500;
+    }
+    
+    .file-upload-label p {
+      margin: 0.5rem 0 0;
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    
+    .file-name {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--gray);
+      font-style: italic;
+    }
+    
+    button {
+      padding: 0.75rem 1.5rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(58, 12, 163, 0.2);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    button i {
+      font-size: 1.2rem;
+    }
+    
+    /* Messages */
+    .message {
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 8px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .success {
+      background-color: rgba(40, 167, 69, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(40, 167, 69, 0.3);
+    }
+    
+    .error {
+      background-color: rgba(220, 53, 69, 0.15);
+      color: var(--error);
+      border: 1px solid rgba(220, 53, 69, 0.3);
+    }
+    
+    /* Galerie */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .gallery-item {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      border: 1px solid var(--border);
+    }
+    
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .gallery-img {
+      width: 300px;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+    }
+    
+    .image-info {
+      padding: 1rem;
+      background: white;
+    }
+    
+    .image-name {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .image-date {
+      font-size:1 rem;
+      color: var(--gray);
+    }
+    
+    /* Icônes (utilisez Font Awesome ou autre) */
+    .icon {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      stroke-width: 0;
+      stroke: currentColor;
+      fill: currentColor;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  
+  
+  <div id="message" class="message"></div>
+  <h1><i class="fas fa-cloud-upload-alt"></i> Upload d'images</h1>
+  <div class="upload-container">
+    <form id="uploadForm" enctype="multipart/form-data">
+      <div class="form-group">
+        <div class="file-upload">
+          <i class="fas fa-images"></i>
+          <div class="file-upload-label">
+            <h3>Glissez-déposez votre image ici</h3>
+            <p>ou cliquez pour sélectionner un fichier</p>
+          </div>
+          <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/gif" required>
+        </div>
+        <div id="fileName" class="file-name"></div>
+      </div>
+      <button type="submit"><i class="fas fa-upload"></i> Upload</button>
+    </form>
+  </div>
+  
+  <h2><i class="fas fa-images"></i> Galerie d'images</h2>
+  <div id="gallery" class="gallery">
+    <!-- Images will be loaded here -->
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('uploadForm');
+      const gallery = document.getElementById('gallery');
+      const message = document.getElementById('message');
+      const fileInput = document.getElementById('image');
+      const fileNameDisplay = document.getElementById('fileName');
+      
+      // Afficher le nom du fichier sélectionné
+      fileInput.addEventListener('change', (e) => {
+        if (fileInput.files.length > 0) {
+          fileNameDisplay.textContent = `Fichier sélectionné: ${fileInput.files[0].name}`;
+        } else {
+          fileNameDisplay.textContent = '';
+        }
+      });
+      
+      // Gestion du drag and drop
+      const fileUpload = document.querySelector('.file-upload');
+      
+      fileUpload.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        fileUpload.style.borderColor = 'var(--primary)';
+        fileUpload.style.backgroundColor = 'rgba(67, 97, 238, 0.1)';
+      });
+      
+      fileUpload.addEventListener('dragleave', () => {
+        fileUpload.style.borderColor = 'var(--border)';
+        fileUpload.style.backgroundColor = 'var(--light)';
+      });
+      
+      fileUpload.addEventListener('drop', (e) => {
+        e.preventDefault();
+        fileUpload.style.borderColor = 'var(--border)';
+        fileUpload.style.backgroundColor = 'var(--light)';
+        
+        if (e.dataTransfer.files.length) {
+          fileInput.files = e.dataTransfer.files;
+          fileNameDisplay.textContent = `Fichier sélectionné: ${e.dataTransfer.files[0].name}`;
+        }
+      });
+      
+      // Charger les images au démarrage
+      loadImages();
+      
+      // Gérer l'upload
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        
+        try {
+          const response = await fetch('/upload', {
+            method: 'POST',
+            body: formData
+          });
+          
+          const data = await response.json();
+          
+          if (response.ok) {
+            showMessage('Image uploadée avec succès!', 'success');
+            loadImages();
+            form.reset();
+            fileNameDisplay.textContent = '';
+          } else {
+            showMessage(data.error || 'Erreur lors de l\'upload', 'error');
+          }
+        } catch (err) {
+          showMessage('Erreur réseau', 'error');
+          console.error(err);
+        }
+      });
+      
+      async function loadImages() {
+        try {
+          const response = await fetch('/upload/images');
+          const { images } = await response.json();
+          
+          gallery.innerHTML = images.map(img => {
+            // Use a relative URL path instead of hardcoded localhost
+            const imgUrl = `/uploads/${img}`;
+            const uploadDate = new Date().toLocaleDateString('fr-FR');
+            
+            return `
+              <div class="gallery-item">
+                <img src="${imgUrl}" alt="${img}" class="gallery-img"
+                     onerror="this.src='/placeholder.png'; this.parentNode.classList.add('error');">
+                  <div class="image-date">Uploadé le ${uploadDate}</div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        } catch (err) {
+          console.error('Erreur:', err);
+          showMessage('Échec du chargement des images', 'error');
+        }
+      }
+      
+      function showMessage(msg, type) {
+        message.innerHTML = `
+          <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+          <span>${msg}</span>
+        `;
+        message.className = `message ${type}`;
+        setTimeout(() => {
+          message.innerHTML = '';
+          message.className = 'message';
+        }, 5000);
+      }
+    });
+  </script>
+</body>
+</html>
