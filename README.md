@@ -150,6 +150,13 @@ Créez une application Express qui affiche un formulaire d'inscription et traite
  ## ✅ la page de confirmation
  ![rihame](https://github.com/user-attachments/assets/e804b6ae-b3af-42c1-ba5a-946e51f52a7b)
 
+ ## Exercice 2 : Implémenter un système d'upload de fichiers
+Créez une application qui permet aux utilisateurs d'uploader des images. Limitez les types de fichiers acceptés aux images (JPEG, PNG, GIF) et la taille maximale à 5MB. Affichez les images uploadées dans une galerie.
+ ### 👉 URL: http://localhost:3000/upload
+ ## 📸 Gestionnaire de Galerie d'Images
+ ![333333333135](https://github.com/user-attachments/assets/53518208-7688-42f7-864e-75bd5767632f)
+
+
 
 
  
