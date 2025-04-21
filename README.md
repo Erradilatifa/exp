@@ -156,6 +156,28 @@ Créez une application qui permet aux utilisateurs d'uploader des images. Limite
  ## 📸 Gestionnaire de Galerie d'Images
  ![333333333135](https://github.com/user-attachments/assets/53518208-7688-42f7-864e-75bd5767632f)
 
+ ## Exercice 3 : Créer une API qui répond en différents formats
+ Créez une API qui peut renvoyer des données dans différents formats (JSON, XML, HTML) en fonction de l'en-tête Accept envoyé par le client. Utilisez res.format() pour gérer les différents formats.
+  ### 👉 URL: http://localhost:3000/api/users
+
+  ## 🧑‍💻 Affichage des utilisateurs – Format HTML
+  ![htmllllll](https://github.com/user-attachments/assets/ac74052b-7c83-467f-a62a-3b436fee8bf6)
+
+  ## 🔍 Informations utilisateur – Format HTML
+  ![wwwwwwwwww](https://github.com/user-attachments/assets/a1b6402a-b5a6-4f89-a2e3-70e420a180da)
+
+
+
+  ## 📄 Format JSON - Liste des utilisateurs retournée par l’API
+  ![exercice23](https://github.com/user-attachments/assets/2e44e482-7d4c-4ac6-bd8f-2b67e08fe43b)
+  
+## 🗂️ Liste des utilisateurs – Format XML
+  ![hml](https://github.com/user-attachments/assets/def58ff6-6d75-4b24-b36e-cbe5676ee437)
+
+
+
+
+
 
 
 
