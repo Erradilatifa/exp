@@ -60,6 +60,8 @@ const productsRouter = require('./routes/modules/products');
 const ordersRouter = require('./routes/modules/orders');
 const authMiddleware = require('./middleware/authMiddleware');
 const uploadRouter = require('./routes/upload');
+const formatRouter = require('./routes/formatRouter');
+app.use('/api', formatRouter);
 
 
 // Configuration des middlewares
@@ -355,7 +357,10 @@ app.listen(PORT, () => {
     - Blog API: http://localhost:${PORT}/blog
     - Interface Blog: http://localhost:${PORT}/blog-page
     - Interface Admin: http://localhost:${PORT}/admin-dashboard
-                    http://localhost:${PORT}/inscription`);
+                    http://localhost:${PORT}/inscription
+                    http://localhost:${PORT}/api/users
+                    `);
+                    
     
     // Créer un message de démarrage dans le log
     const startupMessage = `\n\n=== Serveur démarré à ${new Date().toISOString()} ===\n`;
