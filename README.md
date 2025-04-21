@@ -163,6 +163,10 @@ Créez une application qui permet aux utilisateurs d'uploader des images. Limite
   ## 🧑‍💻 Affichage des utilisateurs – Format HTML
   ![htmllllll](https://github.com/user-attachments/assets/ac74052b-7c83-467f-a62a-3b436fee8bf6)
 
+  ## 🔍 Informations utilisateur – Format HTML
+  ![wwwwwwwwww](https://github.com/user-attachments/assets/a1b6402a-b5a6-4f89-a2e3-70e420a180da)
+
+
 
   ## 📄 Format JSON - Liste des utilisateurs retournée par l’API
   ![exercice23](https://github.com/user-attachments/assets/2e44e482-7d4c-4ac6-bd8f-2b67e08fe43b)
@@ -170,8 +174,6 @@ Créez une application qui permet aux utilisateurs d'uploader des images. Limite
 ## 🗂️ Liste des utilisateurs – Format XML
   ![hml](https://github.com/user-attachments/assets/def58ff6-6d75-4b24-b36e-cbe5676ee437)
 
-## 🔍 Informations utilisateur – Format HTML
-  ![wwwwwwwwww](https://github.com/user-attachments/assets/a1b6402a-b5a6-4f89-a2e3-70e420a180da)
 
 
 
